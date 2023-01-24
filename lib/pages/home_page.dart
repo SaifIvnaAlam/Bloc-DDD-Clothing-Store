@@ -1,6 +1,8 @@
+import 'package:clothing_store/application/products_cubit/products_cubit.dart';
 import 'package:clothing_store/util/app_style.dart';
 import 'package:clothing_store/util/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -28,6 +30,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    context.read<ProductsCubit>().getAllProducts();
+
     return Scaffold(
       body: SafeArea(
           child: ListView(
@@ -176,103 +180,120 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 32,
           ),
-          MasonryGridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 23,
-            itemCount: 5,
-            padding: const EdgeInsets.symmetric(
-              horizontal: kPaddingHorizonatal,
-            ),
-            itemBuilder: (context, index) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
+          BlocBuilder<ProductsCubit, ProductsState>(builder: (context, state) {
+            return state.map(loading: (_) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }, error: (_) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }, loaded: (value) {
+              final productList = value.produts;
+              return MasonryGridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 23,
+                itemCount: productList.length,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kPaddingHorizonatal,
+                ),
+                itemBuilder: (context, index) {
+                  final product = productList[index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Positioned(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(kBorderRadius),
-                          child: SizedBox(
-                              child: Image(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      "https://ae01.alicdn.com/kf/H6f3889dc97e04fcaaa158502828ca3abU/Summer-Dress-Black-Sexy-Dress-Women-Spaghetti-Strap-Dresses-Female-High-Waist-Sheath-Club-Dress-Short.jpg"))),
-                        ),
-                      ),
-                      Positioned(
-                          right: 12,
-                          top: 12,
-                          child: GestureDetector(
-                            child: const Icon(
-                              FontAwesomeIcons.heart,
-                              color: kWhite,
+                      Stack(
+                        children: [
+                          Positioned(
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(kBorderRadius),
+                              child: SizedBox(
+                                  child: Image.network(
+                                product.image,
+                                fit: BoxFit.cover,
+                              )),
                             ),
-                          ))
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "Modern Light Cloth",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: kEncodeSansSemiBold.copyWith(
-                        color: kDarkBrown,
-                        fontSize: SizeConfig.blockSizeHorizontal! * 3),
-                  ),
-                  Text(
-                    "Dress modern",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: kEncodeSansRagular.copyWith(
-                        color: kGrey,
-                        fontSize: SizeConfig.blockSizeHorizontal! * 2.5),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                          ),
+                          Positioned(
+                              right: 12,
+                              top: 12,
+                              child: GestureDetector(
+                                child: const Icon(
+                                  Icons.favorite,
+                                  color: kblack,
+                                ),
+                              ))
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       Text(
-                        "\$212.99",
+                        product.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: kEncodeSansSemiBold.copyWith(
                             color: kDarkBrown,
-                            fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                      ),
+                      Text(
+                        product.category,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: kEncodeSansRagular.copyWith(
+                            color: kGrey,
+                            fontSize: SizeConfig.blockSizeHorizontal! * 2.5),
+                      ),
+                      const SizedBox(
+                        height: 8,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.star,
-                            color: kYellow,
-                            size: 16,
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
                           Text(
-                            "5.5",
+                            "\$212.99",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: kEncodeSansRagular.copyWith(
+                            style: kEncodeSansSemiBold.copyWith(
                                 color: kDarkBrown,
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                                fontSize:
+                                    SizeConfig.blockSizeHorizontal! * 3.5),
                           ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.star,
+                                color: kYellow,
+                                size: 16,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Text(
+                                "5.5",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: kEncodeSansRagular.copyWith(
+                                    color: kDarkBrown,
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal! * 3),
+                              ),
+                            ],
+                          )
                         ],
                       )
                     ],
-                  )
-                ],
+                  );
+                },
               );
-            },
-          )
+            });
+          })
         ],
       )),
     );
