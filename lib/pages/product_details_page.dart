@@ -3,6 +3,7 @@ import 'package:clothing_store/util/counter.dart';
 import 'package:clothing_store/util/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -31,6 +32,41 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     }
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        height: 60,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        margin: const EdgeInsets.symmetric(horizontal: kPaddingHorizonatal),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40), color: kDarkBrown),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              FontAwesomeIcons.cartArrowDown,
+              color: Colors.white,
+            ),
+            const SizedBox(
+              width: 4,
+            ),
+            Text(
+              " Add to cart",
+              style: kEncodeSansBold.copyWith(color: Colors.white),
+            ),
+            SizedBox(
+              child: Text(
+                " | ",
+                style: kEncodeSansBold.copyWith(color: Colors.white),
+              ),
+            ),
+            Text(
+              " \$50.00",
+              style: kEncodeSansBold.copyWith(color: Colors.white),
+            )
+          ],
+        ),
+      ),
       body: SafeArea(
           child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: kPaddingHorizonatal),
@@ -235,8 +271,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               height: 16,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Choose size",
@@ -246,6 +284,151 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                     const SizedBox(
                       height: 8,
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                              height: SizeConfig.blockSizeHorizontal! * 6,
+                              width: SizeConfig.blockSizeHorizontal! * 6,
+                              decoration: BoxDecoration(
+                                  color: kWhite,
+                                  border: Border.all(color: kblack, width: 1),
+                                  shape: BoxShape.circle),
+                              child: Center(
+                                  child: Text("S",
+                                      style: kEncodeSansBold.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.5,
+                                        color: kDarkBrown,
+                                      )))),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                              height: SizeConfig.blockSizeHorizontal! * 6,
+                              width: SizeConfig.blockSizeHorizontal! * 6,
+                              decoration: BoxDecoration(
+                                  color: kWhite,
+                                  border: Border.all(color: kblack),
+                                  shape: BoxShape.circle),
+                              child: Center(
+                                  child: Text("M",
+                                      style: kEncodeSansBold.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.5,
+                                        color: kDarkBrown,
+                                      )))),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                              height: SizeConfig.blockSizeHorizontal! * 6,
+                              width: SizeConfig.blockSizeHorizontal! * 6,
+                              decoration: BoxDecoration(
+                                  color: kWhite,
+                                  border: Border.all(color: kblack),
+                                  shape: BoxShape.circle),
+                              child: Center(
+                                  child: Text("L",
+                                      style: kEncodeSansBold.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.5,
+                                        color: kDarkBrown,
+                                      )))),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                              height: SizeConfig.blockSizeHorizontal! * 6,
+                              width: SizeConfig.blockSizeHorizontal! * 6,
+                              decoration: BoxDecoration(
+                                  color: kWhite,
+                                  border: Border.all(color: kblack),
+                                  shape: BoxShape.circle),
+                              child: Center(
+                                  child: Text("XL",
+                                      style: kEncodeSansBold.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.5,
+                                        color: kDarkBrown,
+                                      )))),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Colors",
+                      style: kEncodeSansBold.copyWith(
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                          color: kDarkBrown),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: SizeConfig.blockSizeHorizontal! * 6,
+                            width: SizeConfig.blockSizeHorizontal! * 6,
+                            decoration: BoxDecoration(
+                                color: Colors.amber,
+                                border: Border.all(color: kblack, width: 1),
+                                shape: BoxShape.circle),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: SizeConfig.blockSizeHorizontal! * 6,
+                            width: SizeConfig.blockSizeHorizontal! * 6,
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                border: Border.all(color: kblack, width: 1),
+                                shape: BoxShape.circle),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: SizeConfig.blockSizeHorizontal! * 6,
+                            width: SizeConfig.blockSizeHorizontal! * 6,
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                border: Border.all(color: kblack, width: 1),
+                                shape: BoxShape.circle),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                      ],
                     )
                   ],
                 )
