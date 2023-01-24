@@ -182,11 +182,11 @@ class _HomePageState extends State<HomePage> {
           ),
           BlocBuilder<ProductsCubit, ProductsState>(builder: (context, state) {
             return state.map(loading: (_) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }, error: (_) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }, loaded: (value) {
@@ -195,8 +195,8 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 23,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 36,
                 itemCount: productList.length,
                 padding: const EdgeInsets.symmetric(
                   horizontal: kPaddingHorizonatal,
