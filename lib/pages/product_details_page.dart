@@ -2,6 +2,8 @@ import 'package:clothing_store/util/app_style.dart';
 import 'package:clothing_store/util/counter.dart';
 import 'package:clothing_store/util/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:readmore/readmore.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
@@ -38,7 +40,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               height: 8,
             ),
             SizedBox(
-              height: SizeConfig.blockSizeVertical! * 60,
+              height: SizeConfig.blockSizeVertical! * 50,
               child: Stack(
                 children: [
                   ClipRRect(
@@ -162,7 +164,91 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ],
                 ),
-                const SizedBox()
+                const SizedBox(
+                  height: 8,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                RatingBar.builder(
+                  itemSize: 18,
+                  initialRating: 3.5,
+                  minRating: 0.5,
+                  direction: Axis.horizontal,
+                  itemPadding: const EdgeInsets.all(2),
+                  itemBuilder: (context, index) {
+                    return const Icon(
+                      Icons.star,
+                      color: kYellow,
+                    );
+                  },
+                  onRatingUpdate: (rating) {
+                    debugPrint(rating.toString());
+                  },
+                  unratedColor: kLightGrey,
+                ),
+                RichText(
+                  text: TextSpan(
+                      text: "5.0 ",
+                      style: kEncodeSansRagular.copyWith(
+                          color: kDarkBrown,
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: "(7.932 reviews)",
+                          style: kEncodeSansRagular.copyWith(
+                              color: Colors.blue[300],
+                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                        )
+                      ]),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            ReadMoreText(
+              "Productize churning anomalies data-point, or let's not solutionize this right now parking lot it, so to be inspired is to become creative, innovative and energized we want this philosophy to trickle down to all our stakeholders. Weaponize the data run it up the flag pole, yet back to the drawing-board, or we need to button up our approach. Incentivization pull in ten extra bodies to help roll the tortoise, or time to open the kimono, for synergize productive mindfulness, or start procrastinating 2 hours get to do work while",
+              trimLines: 3,
+              trimMode: TrimMode.Line,
+              delimiter: " ",
+              trimCollapsedText: "Read more...",
+              trimExpandedText: "Show less",
+              style: kEncodeSansRagular.copyWith(
+                fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                color: kDarkGrey,
+              ),
+              moreStyle: kEncodeSansBold.copyWith(
+                  fontSize: SizeConfig.blockSizeHorizontal! * 4, color: kblack),
+              lessStyle: kEncodeSansBold.copyWith(
+                  fontSize: SizeConfig.blockSizeHorizontal! * 4, color: kblack),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const Divider(
+              height: 1,
+              color: kblack,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "Choose size",
+                      style: kEncodeSansBold.copyWith(
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                          color: kDarkBrown),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    )
+                  ],
+                )
               ],
             )
           ],
