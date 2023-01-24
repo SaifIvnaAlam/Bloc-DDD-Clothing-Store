@@ -1,6 +1,7 @@
 import 'package:clothing_store/util/app_style.dart';
 import 'package:clothing_store/util/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,9 +20,9 @@ class _HomePageState extends State<HomePage> {
   ];
   List<IconData> categoriesIcons = [
     FontAwesomeIcons.a,
-    FontAwesomeIcons.accusoft,
-    FontAwesomeIcons.addressBook,
-    FontAwesomeIcons.addressCard
+    FontAwesomeIcons.section,
+    FontAwesomeIcons.searchengin,
+    FontAwesomeIcons.calculator
   ];
   int current = 0;
   @override
@@ -127,28 +128,150 @@ class _HomePageState extends State<HomePage> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 36,
-                    decoration: BoxDecoration(
-                        border: current == index
-                            ? null
-                            : Border.all(color: kLightGrey, width: 1),
-                        borderRadius: BorderRadius.circular(8),
-                        color: current == index ? kBrown : kWhite),
-                    child: Row(
-                      children: [
-                        Icon(
-                          categoriesIcons[index],
-                          color: current == index ? kWhite : kblack,
-                        ),
-                        Text(categories[index])
-                      ],
-                    ),
-                  ),
-                );
+                    onTap: () {
+                      setState(() {
+                        current == index;
+                      });
+                    },
+                    child: Container(
+                        //   margin: EdgeInsets.only(
+                        //       left: index == 0 ? kPaddingHorizonatal : 15,
+                        //       right: index == categories.length - 1
+                        //           ? kPaddingHorizonatal
+                        //           : 0),
+                        //   padding:
+                        //       const EdgeInsetsDirectional.symmetric(horizontal: 10),
+                        //   height: 36,
+                        //   decoration: BoxDecoration(
+                        //       border: current == index
+                        //           ? null
+                        //           : Border.all(color: kLightGrey, width: 1),
+                        //       borderRadius: BorderRadius.circular(8),
+                        //       color: current == index ? kBrown : kWhite),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       // Icon(
+                        //       //   current == index
+                        //       //       ? categoriesIcons[index]
+                        //       //       : categoriesIcons[index],
+                        //       //   color: current == index ? kWhite : kDarkBrown,
+                        //       // ),
+                        //       // const SizedBox(
+                        //       //   width: 4,
+                        //       // ),
+                        //       Text(
+                        //         categories[index],
+                        //         style: kEncodeSansMedium.copyWith(
+                        //             color: current == index ? kWhite : kDarkBrown,
+                        //             fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        ));
               },
             ),
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          MasonryGridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 23,
+            itemCount: 5,
+            padding: const EdgeInsets.symmetric(
+              horizontal: kPaddingHorizonatal,
+            ),
+            itemBuilder: (context, index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: [
+                      Positioned(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(kBorderRadius),
+                          child: SizedBox(
+                              child: Image(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                      "https://ae01.alicdn.com/kf/H6f3889dc97e04fcaaa158502828ca3abU/Summer-Dress-Black-Sexy-Dress-Women-Spaghetti-Strap-Dresses-Female-High-Waist-Sheath-Club-Dress-Short.jpg"))),
+                        ),
+                      ),
+                      Positioned(
+                          right: 12,
+                          top: 12,
+                          child: GestureDetector(
+                            child: const Icon(
+                              FontAwesomeIcons.heart,
+                              color: kWhite,
+                            ),
+                          ))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "Modern Light Cloth",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: kEncodeSansSemiBold.copyWith(
+                        color: kDarkBrown,
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                  ),
+                  Text(
+                    "Dress modern",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: kEncodeSansRagular.copyWith(
+                        color: kGrey,
+                        fontSize: SizeConfig.blockSizeHorizontal! * 2.5),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "\$212.99",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: kEncodeSansSemiBold.copyWith(
+                            color: kDarkBrown,
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: kYellow,
+                            size: 16,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            "5.5",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: kEncodeSansRagular.copyWith(
+                                color: kDarkBrown,
+                                fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              );
+            },
           )
         ],
       )),
