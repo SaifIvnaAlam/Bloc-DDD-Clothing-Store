@@ -26,7 +26,7 @@ mixin _$Products {
   String? get description => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
-  Map<dynamic, dynamic> get rating => throw _privateConstructorUsedError;
+  Rating? get rating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +46,9 @@ abstract class $ProductsCopyWith<$Res> {
       String? description,
       String category,
       String image,
-      Map<dynamic, dynamic> rating});
+      Rating? rating});
+
+  $RatingCopyWith<$Res>? get rating;
 }
 
 /// @nodoc
@@ -68,7 +70,7 @@ class _$ProductsCopyWithImpl<$Res, $Val extends Products>
     Object? description = freezed,
     Object? category = null,
     Object? image = null,
-    Object? rating = null,
+    Object? rating = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -95,11 +97,23 @@ class _$ProductsCopyWithImpl<$Res, $Val extends Products>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
-      rating: null == rating
+      rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>,
+              as Rating?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RatingCopyWith<$Res>? get rating {
+    if (_value.rating == null) {
+      return null;
+    }
+
+    return $RatingCopyWith<$Res>(_value.rating!, (value) {
+      return _then(_value.copyWith(rating: value) as $Val);
+    });
   }
 }
 
@@ -117,7 +131,10 @@ abstract class _$$_ProductsCopyWith<$Res> implements $ProductsCopyWith<$Res> {
       String? description,
       String category,
       String image,
-      Map<dynamic, dynamic> rating});
+      Rating? rating});
+
+  @override
+  $RatingCopyWith<$Res>? get rating;
 }
 
 /// @nodoc
@@ -137,7 +154,7 @@ class __$$_ProductsCopyWithImpl<$Res>
     Object? description = freezed,
     Object? category = null,
     Object? image = null,
-    Object? rating = null,
+    Object? rating = freezed,
   }) {
     return _then(_$_Products(
       id: null == id
@@ -164,10 +181,10 @@ class __$$_ProductsCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
-      rating: null == rating
-          ? _value._rating
+      rating: freezed == rating
+          ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>,
+              as Rating?,
     ));
   }
 }
@@ -182,8 +199,7 @@ class _$_Products implements _Products {
       this.description,
       required this.category,
       required this.image,
-      required final Map<dynamic, dynamic> rating})
-      : _rating = rating;
+      this.rating});
 
   factory _$_Products.fromJson(Map<String, dynamic> json) =>
       _$$_ProductsFromJson(json);
@@ -200,13 +216,8 @@ class _$_Products implements _Products {
   final String category;
   @override
   final String image;
-  final Map<dynamic, dynamic> _rating;
   @override
-  Map<dynamic, dynamic> get rating {
-    if (_rating is EqualUnmodifiableMapView) return _rating;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_rating);
-  }
+  final Rating? rating;
 
   @override
   String toString() {
@@ -226,13 +237,13 @@ class _$_Products implements _Products {
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.image, image) || other.image == image) &&
-            const DeepCollectionEquality().equals(other._rating, _rating));
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, price, description,
-      category, image, const DeepCollectionEquality().hash(_rating));
+  int get hashCode => Object.hash(
+      runtimeType, id, title, price, description, category, image, rating);
 
   @JsonKey(ignore: true)
   @override
@@ -256,7 +267,7 @@ abstract class _Products implements Products {
       final String? description,
       required final String category,
       required final String image,
-      required final Map<dynamic, dynamic> rating}) = _$_Products;
+      final Rating? rating}) = _$_Products;
 
   factory _Products.fromJson(Map<String, dynamic> json) = _$_Products.fromJson;
 
@@ -273,7 +284,7 @@ abstract class _Products implements Products {
   @override
   String get image;
   @override
-  Map<dynamic, dynamic> get rating;
+  Rating? get rating;
   @override
   @JsonKey(ignore: true)
   _$$_ProductsCopyWith<_$_Products> get copyWith =>

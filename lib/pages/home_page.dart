@@ -132,48 +132,48 @@ class _HomePageState extends State<HomePage> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        current == index;
-                      });
-                    },
-                    child: Container(
-                        //   margin: EdgeInsets.only(
-                        //       left: index == 0 ? kPaddingHorizonatal : 15,
-                        //       right: index == categories.length - 1
-                        //           ? kPaddingHorizonatal
-                        //           : 0),
-                        //   padding:
-                        //       const EdgeInsetsDirectional.symmetric(horizontal: 10),
-                        //   height: 36,
-                        //   decoration: BoxDecoration(
-                        //       border: current == index
-                        //           ? null
-                        //           : Border.all(color: kLightGrey, width: 1),
-                        //       borderRadius: BorderRadius.circular(8),
-                        //       color: current == index ? kBrown : kWhite),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       // Icon(
-                        //       //   current == index
-                        //       //       ? categoriesIcons[index]
-                        //       //       : categoriesIcons[index],
-                        //       //   color: current == index ? kWhite : kDarkBrown,
-                        //       // ),
-                        //       // const SizedBox(
-                        //       //   width: 4,
-                        //       // ),
-                        //       Text(
-                        //         categories[index],
-                        //         style: kEncodeSansMedium.copyWith(
-                        //             color: current == index ? kWhite : kDarkBrown,
-                        //             fontSize: SizeConfig.blockSizeHorizontal! * 3),
-                        //       )
-                        //     ],
-                        //   ),
+                  onTap: () {
+                    setState(() {
+                      current == index;
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        left: index == 0 ? kPaddingHorizonatal : 15,
+                        right: index == categories.length - 1
+                            ? kPaddingHorizonatal
+                            : 0),
+                    padding:
+                        const EdgeInsetsDirectional.symmetric(horizontal: 10),
+                    height: 36,
+                    decoration: BoxDecoration(
+                        border: current == index
+                            ? null
+                            : Border.all(color: kLightGrey, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                        color: current == index ? kBrown : kWhite),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Icon(
+                        //   current == index
+                        //       ? categoriesIcons[index]
+                        //       : categoriesIcons[index],
+                        //   color: current == index ? kWhite : kDarkBrown,
                         // ),
-                        ));
+                        // const SizedBox(
+                        //   width: 4,
+                        // ),
+                        Text(
+                          categories[index],
+                          style: kEncodeSansMedium.copyWith(
+                              color: current == index ? kWhite : kDarkBrown,
+                              fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                        )
+                      ],
+                    ),
+                  ),
+                );
               },
             ),
           ),
@@ -223,9 +223,12 @@ class _HomePageState extends State<HomePage> {
                               right: 12,
                               top: 12,
                               child: GestureDetector(
-                                child: const Icon(
-                                  Icons.favorite,
-                                  color: kblack,
+                                child: const CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    Icons.favorite,
+                                    color: kblack,
+                                  ),
                                 ),
                               ))
                         ],
@@ -272,11 +275,11 @@ class _HomePageState extends State<HomePage> {
                                 color: kYellow,
                                 size: 16,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 8,
                               ),
                               Text(
-                                "5.5",
+                                product.rating!.rate.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: kEncodeSansRagular.copyWith(

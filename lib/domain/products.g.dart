@@ -13,7 +13,9 @@ _$_Products _$$_ProductsFromJson(Map<String, dynamic> json) => _$_Products(
       description: json['description'] as String?,
       category: json['category'] as String,
       image: json['image'] as String,
-      rating: json['rating'] as Map<String, dynamic>,
+      rating: json['rating'] == null
+          ? null
+          : Rating.fromJson(json['rating'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ProductsToJson(_$_Products instance) =>

@@ -1,3 +1,4 @@
+import 'package:clothing_store/domain/rating.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'products.freezed.dart';
@@ -12,19 +13,19 @@ class Products with _$Products {
     String? description,
     required String category,
     required String image,
-    required Map rating,
+    Rating? rating,
   }) = _Products;
 
   factory Products.fromJson(Map<String, dynamic> json) =>
       _$ProductsFromJson(json);
 
-  factory Products.empty() => const _Products(
-        category: "",
-        id: 0,
-        price: 0.0,
-        description: "",
-        image: "",
-        title: "",
-        rating: {},
-      );
+  // factory Products.empty() => const _Products(
+  //       category: "",
+  //       id: 0,
+  //       price: 0.0,
+  //       description: "",
+  //       image: "",
+  //       title: "",
+  //       rating: Rating(rate: 0.0, count: 0.0),
+  //     );
 }
