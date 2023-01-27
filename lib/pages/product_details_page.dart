@@ -66,7 +66,7 @@ class ProductDetailsPage extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(24),
-                    child: BlocBuilder<ProductInfoCubit, SubjectState>(
+                    child: BlocBuilder<ProductInfoCubit, ProductInfoState>(
                       builder: (context, state) {
                         return Image(
                           height: SizeConfig.blockSizeVertical! * 59,
