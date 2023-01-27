@@ -1,10 +1,12 @@
-import 'package:clothing_store/application/products_cubit/products_cubit.dart';
+import 'package:clothing_store/pages/product_details_page.dart';
 import 'package:clothing_store/util/app_style.dart';
 import 'package:clothing_store/util/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../application/products_cubit/products_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -203,95 +205,106 @@ class _HomePageState extends State<HomePage> {
                 ),
                 itemBuilder: (context, index) {
                   final product = productList[index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          Positioned(
-                            child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.circular(kBorderRadius),
-                              child: SizedBox(
-                                  child: Image.network(
-                                product.image,
-                                fit: BoxFit.cover,
-                              )),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProductDetailsPage(
+                                  productId: product.id,
+                                )),
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            Positioned(
+                              child: ClipRRect(
+                                borderRadius:
+                                    BorderRadius.circular(kBorderRadius),
+                                child: SizedBox(
+                                    child: Image.network(
+                                  product.image,
+                                  fit: BoxFit.cover,
+                                )),
+                              ),
                             ),
-                          ),
-                          Positioned(
-                              right: 12,
-                              top: 12,
-                              child: GestureDetector(
-                                child: const CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: kblack,
+                            Positioned(
+                                right: 12,
+                                top: 12,
+                                child: GestureDetector(
+                                  child: const CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    child: Icon(
+                                      Icons.favorite,
+                                      color: kblack,
+                                    ),
                                   ),
+                                ))
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          product.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: kEncodeSansSemiBold.copyWith(
+                              color: kDarkBrown,
+                              fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                        ),
+                        Text(
+                          product.category,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: kEncodeSansRagular.copyWith(
+                              color: kGrey,
+                              fontSize: SizeConfig.blockSizeHorizontal! * 2.5),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "\$212.99",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: kEncodeSansSemiBold.copyWith(
+                                  color: kDarkBrown,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 3.5),
+                            ),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  color: kYellow,
+                                  size: 16,
                                 ),
-                              ))
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        product.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: kEncodeSansSemiBold.copyWith(
-                            color: kDarkBrown,
-                            fontSize: SizeConfig.blockSizeHorizontal! * 3),
-                      ),
-                      Text(
-                        product.category,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: kEncodeSansRagular.copyWith(
-                            color: kGrey,
-                            fontSize: SizeConfig.blockSizeHorizontal! * 2.5),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "\$212.99",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: kEncodeSansSemiBold.copyWith(
-                                color: kDarkBrown,
-                                fontSize:
-                                    SizeConfig.blockSizeHorizontal! * 3.5),
-                          ),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                color: kYellow,
-                                size: 16,
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                product.rating!.rate.toString(),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: kEncodeSansRagular.copyWith(
-                                    color: kDarkBrown,
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal! * 3),
-                              ),
-                            ],
-                          )
-                        ],
-                      )
-                    ],
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  product.rating!.rate.toString(),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: kEncodeSansRagular.copyWith(
+                                      color: kDarkBrown,
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal! * 3),
+                                ),
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   );
                 },
               );

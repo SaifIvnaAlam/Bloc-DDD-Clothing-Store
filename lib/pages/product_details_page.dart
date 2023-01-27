@@ -2,35 +2,20 @@ import 'package:clothing_store/util/app_style.dart';
 import 'package:clothing_store/util/counter.dart';
 import 'package:clothing_store/util/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:readmore/readmore.dart';
 
-class ProductDetailPage extends StatefulWidget {
-  const ProductDetailPage({super.key});
+import '../application/products_cubit/Product info cubit/product_info_cubit.dart';
 
-  @override
-  State<ProductDetailPage> createState() => _ProductDetailPageState();
-}
+class ProductDetailsPage extends StatelessWidget {
+  final int productId;
+  const ProductDetailsPage({super.key, required this.productId});
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    final Counter counter = Counter();
-
-    void increamentCounter() {
-      setState(() {
-        counter.increment();
-      });
-    }
-
-    void decreamentCounter() {
-      setState(() {
-        counter.decrement();
-      });
-    }
-
+    context.read<ProductInfoCubit>().getProductsid(productId);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
@@ -81,13 +66,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(24),
-                    child: Image(
-                      height: SizeConfig.blockSizeVertical! * 59,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        "https://image.made-in-china.com/155f0j00zyIWpbCaJUuM/Adult-Women-Sex-Costume-Sexy-Clothing-European-and-American-Deep-V-Sexy-Suspender-Dress-Female-Ins-New-Pleated-Slim-Slimming-Irregular-Skirt-Sex-Clothes.jpg",
-                      ),
+                    child: BlocBuilder<ProductInfoCubit, SubjectState>(
+                      builder: (context, state) {
+                        return Image(
+                          height: SizeConfig.blockSizeVertical! * 59,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            "https://image.made-in-china.com/155f0j00zyIWpbCaJUuM/Adult-Women-Sex-Costume-Sexy-Clothing-European-and-American-Deep-V-Sexy-Suspender-Dress-Female-Ins-New-Pleated-Slim-Slimming-Irregular-Skirt-Sex-Clothes.jpg",
+                          ),
+                        );
+                      },
                     ),
                   ),
                   Align(
@@ -157,7 +146,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: decreamentCounter,
+                      onTap: () {},
                       child: Container(
                         height: 30,
                         width: 30,
@@ -175,7 +164,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       width: SizeConfig.blockSizeHorizontal! * 2.5,
                     ),
                     Text(
-                      counter.value.toString(),
+                      "0",
                       style: kEncodeSansBold.copyWith(
                           fontSize: SizeConfig.blockSizeHorizontal! * 5,
                           color: kDarkBrown),
@@ -184,7 +173,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       width: SizeConfig.blockSizeHorizontal! * 2.5,
                     ),
                     GestureDetector(
-                      onTap: increamentCounter,
+                      onTap: () {},
                       child: Container(
                         height: 30,
                         width: 30,
