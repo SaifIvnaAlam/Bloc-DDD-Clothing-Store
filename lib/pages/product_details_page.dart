@@ -60,171 +60,171 @@ class ProductDetailsPage extends StatelessWidget {
               height: 8,
             ),
             SizedBox(
-              height: SizeConfig.blockSizeVertical! * 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
-                child: BlocBuilder<ProductInfoCubit, ProductInfoState>(
-                  builder: (context, state) {
-                    return state.map(
-                      productLoading: (value) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                      productError: (value) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                      productLoaded: (value) {
-                        var product = value.produtsbyId;
-                        return Column(
-                          children: [
-                            Expanded(
+              height: 500,
+              width: double.infinity,
+              child: BlocBuilder<ProductInfoCubit, ProductInfoState>(
+                builder: (context, state) {
+                  return state.map(
+                    productLoading: (value) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    productError: (value) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    productLoaded: (value) {
+                      var product = value.produtsbyId;
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 500,
+                              width: 500,
                               child: Image.network(
                                   width: double.infinity,
                                   fit: BoxFit.cover,
                                   product.image),
                             ),
-                            const SizedBox(
-                              height: 24,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    product.title,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: kEncodeSansSemiBold.copyWith(
+                          ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  product.title,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: kEncodeSansSemiBold.copyWith(
+                                      color: kDarkBrown,
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal! * 7),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                          color: kWhite,
+                                          border: Border.all(color: kblack),
+                                          shape: BoxShape.circle),
+                                      child: const Icon(
+                                        Icons.remove,
+                                        color: kGrey,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        SizeConfig.blockSizeHorizontal! * 2.5,
+                                  ),
+                                  Text(
+                                    "0",
+                                    style: kEncodeSansBold.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! * 5,
+                                        color: kDarkBrown),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        SizeConfig.blockSizeHorizontal! * 2.5,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                          color: kWhite,
+                                          border: Border.all(color: kblack),
+                                          shape: BoxShape.circle),
+                                      child: const Icon(
+                                        Icons.add,
+                                        color: kGrey,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              RatingBar.builder(
+                                itemSize: 18,
+                                initialRating: 3.5,
+                                minRating: 0.5,
+                                direction: Axis.horizontal,
+                                itemPadding: const EdgeInsets.all(2),
+                                itemBuilder: (context, index) {
+                                  return const Icon(
+                                    Icons.star,
+                                    color: kYellow,
+                                  );
+                                },
+                                onRatingUpdate: (rating) {
+                                  debugPrint(rating.toString());
+                                },
+                                unratedColor: kLightGrey,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                    text: "5.0 ",
+                                    style: kEncodeSansRagular.copyWith(
                                         color: kDarkBrown,
                                         fontSize:
                                             SizeConfig.blockSizeHorizontal! *
-                                                7),
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Container(
-                                        height: 30,
-                                        width: 30,
-                                        decoration: BoxDecoration(
-                                            color: kWhite,
-                                            border: Border.all(color: kblack),
-                                            shape: BoxShape.circle),
-                                        child: const Icon(
-                                          Icons.remove,
-                                          color: kGrey,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          SizeConfig.blockSizeHorizontal! * 2.5,
-                                    ),
-                                    Text(
-                                      "0",
-                                      style: kEncodeSansBold.copyWith(
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal! *
-                                                  5,
-                                          color: kDarkBrown),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          SizeConfig.blockSizeHorizontal! * 2.5,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Container(
-                                        height: 30,
-                                        width: 30,
-                                        decoration: BoxDecoration(
-                                            color: kWhite,
-                                            border: Border.all(color: kblack),
-                                            shape: BoxShape.circle),
-                                        child: const Icon(
-                                          Icons.add,
-                                          color: kGrey,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                              ],
+                                                3.5),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: "(7.932 reviews)",
+                                        style: kEncodeSansRagular.copyWith(
+                                            color: Colors.blue[300],
+                                            fontSize: SizeConfig
+                                                    .blockSizeHorizontal! *
+                                                3.5),
+                                      )
+                                    ]),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          ReadMoreText(
+                            product.description!,
+                            trimLines: 3,
+                            trimMode: TrimMode.Line,
+                            delimiter: " ",
+                            trimCollapsedText: "Read more...",
+                            trimExpandedText: "Show less",
+                            style: kEncodeSansRagular.copyWith(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                              color: kDarkGrey,
                             ),
-                            Row(
-                              children: [
-                                RatingBar.builder(
-                                  itemSize: 18,
-                                  initialRating: 3.5,
-                                  minRating: 0.5,
-                                  direction: Axis.horizontal,
-                                  itemPadding: const EdgeInsets.all(2),
-                                  itemBuilder: (context, index) {
-                                    return const Icon(
-                                      Icons.star,
-                                      color: kYellow,
-                                    );
-                                  },
-                                  onRatingUpdate: (rating) {
-                                    debugPrint(rating.toString());
-                                  },
-                                  unratedColor: kLightGrey,
-                                ),
-                                RichText(
-                                  text: TextSpan(
-                                      text: "5.0 ",
-                                      style: kEncodeSansRagular.copyWith(
-                                          color: kDarkBrown,
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal! *
-                                                  3.5),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: "(7.932 reviews)",
-                                          style: kEncodeSansRagular.copyWith(
-                                              color: Colors.blue[300],
-                                              fontSize: SizeConfig
-                                                      .blockSizeHorizontal! *
-                                                  3.5),
-                                        )
-                                      ]),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            ReadMoreText(
-                              product.description!,
-                              trimLines: 3,
-                              trimMode: TrimMode.Line,
-                              delimiter: " ",
-                              trimCollapsedText: "Read more...",
-                              trimExpandedText: "Show less",
-                              style: kEncodeSansRagular.copyWith(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                                color: kDarkGrey,
-                              ),
-                              moreStyle: kEncodeSansBold.copyWith(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                                  color: kblack),
-                              lessStyle: kEncodeSansBold.copyWith(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                                  color: kblack),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                ),
+                            moreStyle: kEncodeSansBold.copyWith(
+                                fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                                color: kblack),
+                            lessStyle: kEncodeSansBold.copyWith(
+                                fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                                color: kblack),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ),
             const SizedBox(
